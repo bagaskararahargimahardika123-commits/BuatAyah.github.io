@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Ucapan Ayah</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* TAP SCREEN */
+#tapScreen{
+    position:fixed;
+    inset:0;
+    background:black;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:20;
+    cursor:pointer;
+}
+#tapScreen h1{
+    color:red;
+    animation:pulse 1.5s infinite;
+}
+
+/* LOADING */
+#loading{
+    position:fixed;
+    inset:0;
+    background:black;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:10;
+}
+.loading-text{
+    color:red;
+    letter-spacing:4px;
+    text-align:center;
+    margin-bottom:12px;
+}
+.loading-box{
+    width:280px;
+    height:14px;
+    background:#1a0000;
+    border-radius:20px;
+    overflow:hidden;
+}
+.loading-bar{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,red,#ff4d4d,red);
+}
+
+/* PAGE BASE */
+.page{
+    display:none;
+    min-height:100vh;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    animation:fade 1s ease;
+}
+.next-btn{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    background:red;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:14px;
+    cursor:pointer;
+    box-shadow:0 0 12px red;
+}
+
+/* PAGE 1 */
+#page1{
+    background:linear-gradient(135deg,black,#3b0000,#b00000);
+}
+#page1 h2{
+    color:red;
+    font-size:32px;
+    text-shadow:0 0 18px red;
+}
+
+/* PAGE 2 */
+#page2{
+    background:linear-gradient(to bottom,black,white);
+}
+#page2 h2{
+    color:#0066ff;
+    font-size:24px;
+    line-height:1.5;
+}
+
+/* PAGE 3 */
+#page3{
+    background:linear-gradient(135deg,black,#001f4d,#0033aa);
+}
+#page3 h2{
+    color:#4da6ff;
+    font-size:22px;
+    text-shadow:0 0 10px #4da6ff;
+}
+
+/* ANIM */
+@keyframes pulse{
+    0%{transform:scale(1)}
+    50%{transform:scale(1.1)}
+    100%{transform:scale(1)}
+}
+@keyframes fade{
+    from{opacity:0}
+    to{opacity:1}
+}
+</style>
+</head>
+<body>
+
+<!-- MUSIC -->
+<audio id="bgMusic" src="bgMusic.mp3" loop></audio>
+
+<!-- TAP -->
+<div id="tapScreen" onclick="startAll()">
+    <h1>TAP UNTUK MULAI</h1>
+</div>
+
+<!-- LOADING -->
+<div id="loading">
+    <div>
+        <div class="loading-text">LOADING...</div>
+        <div class="loading-box">
+            <div class="loading-bar" id="bar"></div>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE 1 -->
+<div id="page1" class="page">
+    <h2>Selamat Ulang Tahun<br>Ayah Erlang</h2>
+    <button class="next-btn" onclick="goPage(2)">Selanjutnya</button>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2" class="page">
+    <h2>
+        Semoga Panjang Umur, Sehat Selalu Ayah,<br>
+        Semoga Rezekinya Lancar Amiin
+    </h2>
+    <button class="next-btn" onclick="goPage(3)">Selanjutnya</button>
+</div>
+
+<!-- PAGE 3 -->
+<div id="page3" class="page">
+    <h2>Buatan :<br>Bagaskara Rahargi Mahardika</h2>
+</div>
+
+<script>
+const music = document.getElementById("bgMusic");
+const tapScreen = document.getElementById("tapScreen");
+const loading = document.getElementById("loading");
+const bar = document.getElementById("bar");
+
+function startAll(){
+    tapScreen.style.display = "none";
+    loading.style.display = "flex";
+    music.play();
+
+    let progress = 0;
+    const load = setInterval(()=>{
+        progress += 2.5;
+        bar.style.width = progress + "%";
+        if(progress >= 100){
+            clearInterval(load);
+            loading.style.display = "none";
+            document.getElementById("page1").style.display = "flex";
+        }
+    },100);
+}
+
+function goPage(num){
+    document.querySelectorAll(".page").forEach(p=>p.style.display="none");
+    document.getElementById("page"+num).style.display="flex";
+}
+</script>
+
+</body>
+</html>

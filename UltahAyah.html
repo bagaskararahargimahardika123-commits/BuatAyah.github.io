@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Ucapan Ayah</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* ===== LOADING ===== */
+#loading {
+    position: fixed;
+    inset: 0;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.loading-wrapper {
+    text-align: center;
+}
+
+.loading-text {
+    color: red;
+    letter-spacing: 4px;
+    margin-bottom: 14px;
+    text-shadow: 0 0 10px red;
+    animation: blink 1.2s infinite;
+}
+
+.loading-box {
+    width: 300px;
+    height: 14px;
+    background: #1a0000;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.loading-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, red, #ff4d4d, red);
+}
+
+/* ===== PAGE 1 ===== */
+#page1 {
+    display: none;
+    min-height: 100vh;
+    background: linear-gradient(135deg, black, #3b0000, #b00000);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 1s ease;
+}
+
+.page1-text {
+    color: red;
+    font-size: 32px;
+    text-align: center;
+    text-shadow: 0 0 18px red;
+}
+
+/* Button */
+.next-btn {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background: red;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 0 12px red;
+    animation: pulse 1.5s infinite;
+}
+
+.next-btn:hover {
+    background: #ff4d4d;
+}
+
+/* ===== PAGE 2 ===== */
+#page2 {
+    display: none;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, black, white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page2-text {
+    color: #0055ff;
+    font-size: 26px;
+    text-align: center;
+    line-height: 1.5;
+    animation: zoomFade 1.5s ease forwards;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes blink {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes zoomFade {
+    from {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="loading">
+    <div class="loading-wrapper">
+        <div class="loading-text">LOADING...</div>
+        <div class="loading-box">
+            <div class="loading-bar" id="bar"></div>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE 1 -->
+<div id="page1">
+    <div class="page1-text">
+        Selamat Ulang Tahun<br>Ayah Erlang
+    </div>
+    <button class="next-btn" onclick="nextPage()">Selanjutnya</button>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2">
+    <div class="page2-text">
+        Semoga Panjang Umur, Sehat Selalu Ayah,<br>
+        Semoga Rezekinya Lancar Amiin
+    </div>
+</div>
+
+<script>
+const bar = document.getElementById("bar");
+const loading = document.getElementById("loading");
+const page1 = document.getElementById("page1");
+const page2 = document.getElementById("page2");
+
+let progress = 0;
+
+// Loading 4 detik
+const loadingInterval = setInterval(() => {
+    progress += 2.5;
+    bar.style.width = progress + "%";
+
+    if (progress >= 100) {
+        clearInterval(loadingInterval);
+        loading.style.display = "none";
+        page1.style.display = "flex";
+    }
+}, 100);
+
+function nextPage() {
+    page1.style.display = "none";
+    page2.style.display = "flex";
+}
+</script>
+
+</body>
+</html>
